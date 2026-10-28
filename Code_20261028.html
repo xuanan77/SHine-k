@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHine‑K Edge Safety v1.3</title>
+    <style>
+        * {box-sizing: border-box;font-family:system-ui, sans-serif;margin:0;padding:0;}
+        body{background:#0f172a;color:#e2e8f0;padding:20px;max-width:1280px;margin:0 auto;}
+        h1{font-size:22px;margin-bottom:16px;color:#38bdf8;}
+        .card{background:#1e293b;border-radius:10px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px #0003;}
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+        .vital-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0;}
+        .vital-item{background:#334155;padding:12px;border-radius:8px;text-align:center;}
+        .vital-item label{font-size:13px;color:#94a3b8;display:block;margin-bottom:4px;}
+        .vital-item .val{font-size:24px;font-weight:bold;color:#fff;}
+        table{width:100%;border-collapse:collapse;margin-top:10px;}
+        th,td{border:1px solid #475569;padding:10px;text-align:center;}
+        th{background:#334155;}
+        .btn-group{margin:10px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+        button{background:#2563eb;color:white;border:none;padding:9px 16px;border-radius:6px;cursor:pointer;}
+        button:hover{background:#1d4ed8;}
+        button.warn-btn{background:#dc2626;}
+        button.warn-btn:hover{background:#b91c1c;}
+        input,select{background:#334155;color:#fff;border:1px solid #475569;padding:8px;border-radius:6px;}
+        .info{color:#94a3b8;font-size:13px;margin-top:8px;}
+        .bad{color:#f87171;}
+        .good{color:#4ade80;}
+        .alarm-flash{animation:flash 0.4s infinite;}
+        @keyframes flash{
+            0%{background-color:#1e293b;}
+            50%{background-color:#7f1d1d;}
+        }
+        canvas{width:100%;background:#0f172a;border-radius:6px;margin-top:8px;}
+        .log-box{max-height:220px;overflow-y:auto;background:#0f172a;padding:10px;border-radius:6px;margin-top:10px;}
+        .log-item{font-size:13px;padding:4px 0;border-bottom:1px solid #334155;}
+    </style>
+</head>
+<body>
+    <h1>SHine‑K Edge Safety · Edge Simulation Dashboard v1.3</h1>
+    <div class="card">
+        <h3>🔐 Seed‑Locked Simulation 仿真控制</h3>
+        <div class="btn-group">
+            <label>Seed：</label>
+            <input id="seedInput" type="number" value="12345">
+            <button onclick="runSim()">Run Simulation（运行仿真）</button>
+            <button onclick="resetSim()">Reset（重置）</button>
+            <label>
+                <input type="checkbox" id="voiceSwitch" checked> 开启语音预警
+            </label>
+            <label>播报语言：</label>
+            <select id="voiceLang">
+                <option value="zh">中文</option>
+                <option value="ko">한국어</option>
+            </select>
+        </div>
+        <div class="info">同一Seed可复现全部结果；语音预警依赖浏览器Web Speech；首次播放需要点击按钮交互授权</div>
+    </div>
+
+    <div class="grid2">
+        <div class="card">
+            <h3>🫀 W‑01 生命体征监测</h3>
+            <div class="vital-row">
+                <div class="vital-item">
+                    <label>HR(bpm...
